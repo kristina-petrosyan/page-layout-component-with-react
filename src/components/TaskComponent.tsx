@@ -2,6 +2,7 @@ import type { Task, TaskPriority, TaskStatus } from "../types/task.types";
 
 interface TaskComponentProps {
   task: Task;
+  theme?: "dark" | "light";
 }
 
 function getPriorityBadgeClass(priority: TaskPriority): string {
@@ -31,7 +32,16 @@ function getProgressColor(status: TaskStatus): string {
 
 function TaskComponent(props: TaskComponentProps) {
   const { task } = props;
-  const { title, description, status, priority, dueDate, tags, completed, progress } = task;
+  const {
+    title,
+    description,
+    status,
+    priority,
+    dueDate,
+    tags,
+    completed,
+    progress,
+  } = task;
 
   const formattedDueDate = new Date(dueDate).toLocaleDateString("en-US", {
     month: "long",
@@ -47,19 +57,26 @@ function TaskComponent(props: TaskComponentProps) {
     >
       <div className="task-header">
         <h4 className="task-title-text">{title}</h4>
-        <span className={`badge ${getPriorityBadgeClass(priority)}`}>{priority}</span>
+        <span className={`badge ${getPriorityBadgeClass(priority)}`}>
+          {priority}
+        </span>
       </div>
       <p className="task-desc">{description}</p>
       <div className="task-footer">
         <div className="progress-wrap">
           <div className="progress-row">
-            <span className={`badge ${getStatusBadgeClass(status)}`}>{getStatusLabel(status)}</span>
+            <span className={`badge ${getStatusBadgeClass(status)}`}>
+              {getStatusLabel(status)}
+            </span>
             <span className="progress-pct">{progress}%</span>
           </div>
           <div className="progress-track">
             <div
               className="progress-fill"
-              style={{ width: `${progress}%`, background: getProgressColor(status) }}
+              style={{
+                width: `${progress}%`,
+                background: getProgressColor(status),
+              }}
             ></div>
           </div>
         </div>

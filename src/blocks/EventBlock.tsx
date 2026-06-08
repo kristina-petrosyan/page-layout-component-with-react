@@ -1,3 +1,4 @@
+import database from "../storage/database";
 import EventComponent from "../components/EventComponent";
 
 function EventBlock() {
@@ -7,8 +8,9 @@ function EventBlock() {
         <span className="material-symbols-outlined">event</span>
         Events
       </h3>
-      {/* Event Component Render Here*/}
-      <EventComponent />
+      {database.events.map((event) => (
+        <EventComponent key={event.id} event={event} />
+      ))}
     </div>
   );
 }

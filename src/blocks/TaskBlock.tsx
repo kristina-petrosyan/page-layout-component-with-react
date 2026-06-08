@@ -9,7 +9,7 @@ function TaskBlock() {
         Team Tasks
       </h3>
       {database.tasks.map((task) => (
-        <TaskComponent key={task.id} task={task} />
+        <TaskComponent key={task.id} task={task} theme="dark" />
       ))}
     </div>
   );
