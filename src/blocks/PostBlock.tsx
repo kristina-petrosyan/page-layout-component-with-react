@@ -5,7 +5,7 @@ function PostBlock() {
   return (
     <div className="posts" data-layout-structure="block">
       <h3 className="block-header post-title">
-        <span className="material-symbols-outlined">article</span>
+        <span className="material-symbols-outlined">article </span>
         Latest Posts
       </h3>
       <div className="posts-wrapper">

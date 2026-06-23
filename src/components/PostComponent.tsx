@@ -2,15 +2,20 @@ import type { Post } from "../types/post.types";
 
 interface PostComponentProps {
   post: Post;
+  themes?: "light" | "dark";
 }
 
 function PostComponent(props: PostComponentProps) {
-  const { post } = props;
+  const { post, themes } = props;
   const { title, body, tags, reactions, views } = post;
   const { likes, dislikes } = reactions;
 
   return (
-    <div className="post" data-layout-structure="component">
+    <div
+      className="post"
+      data-layout-structure="component"
+      data-theme={themes || "light"}
+    >
       <h4 className="post-title-text">{title}</h4>
       <p className="post-body">{body}</p>
       <div className="tags">

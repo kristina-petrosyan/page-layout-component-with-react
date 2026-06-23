@@ -1,30 +1,21 @@
+import NavItemComponent from "../components/NavItemComponent";
+
 function PageNavBlock() {
   return (
     <ul className="nav-list" data-layout-structure="block">
-      <li className="active" data-layout-structure="component">
-        <a className="nav-link" href="#">
-          <span className="material-symbols-outlined">home</span>
-          Home
-        </a>
-      </li>
-      <li data-layout-structure="component">
-        <a className="nav-link" href="#">
-          <span className="material-symbols-outlined">info</span>
-          <span className="link-label">About</span>
-        </a>
-      </li>
-      <li data-layout-structure="component">
-        <a className="nav-link" href="#">
-          <span className="material-symbols-outlined">design_services</span>
-          <span className="link-label">Services</span>
-        </a>
-      </li>
-      <li data-layout-structure="component">
-        <a className="nav-link" href="#">
-          <span className="material-symbols-outlined">mail</span>
-          <span className="link-label">Contact</span>
-        </a>
-      </li>
+      <NavItemComponent to="/" icon="home" label="Home" end />
+      <NavItemComponent to="/about" icon="info" label="About" />
+      <NavItemComponent
+        to="/services"
+        icon="design_services"
+        label="Services"
+      />
+      <NavItemComponent to="/contact" icon="mail" label="Contact" />
+
+      <a href="/about" className="nav-link" data-layout-structure="component">
+        <span className="material-symbols-outlined">info</span>
+        <span className="link-label">About</span>
+      </a>
     </ul>
   );
 }
