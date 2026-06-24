@@ -376,6 +376,23 @@
     color: var(--clr-accent);
   }
 
+  /* Post filter bar — horizontal tag + sort toolbar */
+  .post-filters[data-layout-structure="block"] {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--sp-3);
+    padding: var(--sp-3) var(--sp-4);
+  }
+
+  .filter-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-2);
+    flex: 1;
+    align-items: center;
+  }
+
   /* Posts block — header + wrapper + pagination column */
   .posts-block[data-layout-structure="block"] {
     gap: var(--sp-4);
@@ -1148,6 +1165,81 @@
     font-size: var(--text-xs);
     color: var(--clr-text-3);
     white-space: nowrap;
+  }
+
+  /* ─ Post filter controls ─ */
+  .filter-label {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-1);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--clr-text-3);
+    flex-shrink: 0;
+  }
+
+  .filter-label .material-symbols-outlined {
+    font-size: 0.9rem;
+    line-height: 1;
+  }
+
+  .filter-tag {
+    font-size: 0.7rem;
+    font-family: var(--font-mono);
+    line-height: 1.5;
+    padding: 3px 10px;
+    border-radius: var(--r-full);
+    background: transparent;
+    color: var(--clr-text-3);
+    border: 1px solid var(--clr-border-strong);
+    cursor: pointer;
+    transition:
+      background 0.15s,
+      border-color 0.15s,
+      color 0.15s,
+      box-shadow 0.15s;
+  }
+
+  .filter-tag:hover {
+    color: var(--clr-accent-hi);
+    border-color: rgba(124, 111, 247, 0.5);
+    background: var(--clr-accent-dim);
+  }
+
+  .filter-tag.active {
+    background: var(--clr-accent);
+    color: #fff;
+    border-color: var(--clr-accent);
+    box-shadow:
+      0 0 8px rgba(124, 111, 247, 0.5),
+      0 0 18px rgba(124, 111, 247, 0.2);
+  }
+
+  .filter-sort {
+    font: inherit;
+    font-size: var(--text-xs);
+    color: var(--clr-text-2);
+    background: var(--clr-bg-card);
+    border: 1px solid var(--clr-border-strong);
+    border-radius: var(--r-md);
+    padding: var(--sp-2) var(--sp-3);
+    outline: none;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition:
+      border-color 0.2s,
+      box-shadow 0.2s;
+  }
+
+  .filter-sort:hover {
+    border-color: rgba(124, 111, 247, 0.5);
+  }
+
+  .filter-sort:focus {
+    border-color: var(--clr-accent);
+    box-shadow: 0 0 0 3px var(--clr-accent-dim);
   }
 
   /* ─ Tags ─ */

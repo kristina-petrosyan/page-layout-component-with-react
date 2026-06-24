@@ -1,7 +1,12 @@
 import database from "../storage/database";
 import PostComponent from "../components/PostComponent";
+import type { Post } from "../types/post.types";
 
-function PostBlock() {
+interface PostBlockProps {
+  posts?: Post[];
+}
+
+function PostBlock({ posts = database.posts }: PostBlockProps) {
   return (
     <div className="posts" data-layout-structure="block">
       <h3 className="block-header post-title">
@@ -9,9 +14,13 @@ function PostBlock() {
         Latest Posts
       </h3>
       <div className="posts-wrapper">
-        {database.posts.map((post) => (
-          <PostComponent key={post.id} post={post} />
-        ))}
+        {posts.length === 0 ? (
+          <p className="posts-empty">No posts match your filters.</p>
+        ) : (
+          posts.map((post) => (
+            <PostComponent key={post.id} post={post} />
+          ))
+        )}
       </div>
 
       <div className="pagination-block" data-layout-structure="block">

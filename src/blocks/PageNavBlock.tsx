@@ -11,11 +11,7 @@ function PageNavBlock() {
         label="Services"
       />
       <NavItemComponent to="/contact" icon="mail" label="Contact" />
-
-      <a href="/about" className="nav-link" data-layout-structure="component">
-        <span className="material-symbols-outlined">info</span>
-        <span className="link-label">About</span>
-      </a>
+      <NavItemComponent to="/posts" icon="article" label="Posts" />
     </ul>
   );
 }

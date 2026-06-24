@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import type { Post } from "../types/post.types";
 
 interface PostComponentProps {
@@ -7,7 +8,7 @@ interface PostComponentProps {
 
 function PostComponent(props: PostComponentProps) {
   const { post, themes } = props;
-  const { title, body, tags, reactions, views } = post;
+  const { id, title, body, tags, reactions, views } = post;
   const { likes, dislikes } = reactions;
 
   return (
@@ -35,6 +36,11 @@ function PostComponent(props: PostComponentProps) {
           </span>
         </div>
         <span className="post-views">👁 {views} views</span>
+      </div>
+      <div className="post-footer">
+        <Link to={`/posts/${id}`} className="btn btn-view-more">
+          View More
+        </Link>
       </div>
     </div>
   );
