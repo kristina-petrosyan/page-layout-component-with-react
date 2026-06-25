@@ -1,3 +1,4 @@
+import { useState } from "react";
 import type { Task, TaskPriority, TaskStatus } from "../types/task.types";
 
 interface TaskComponentProps {
@@ -35,13 +36,18 @@ function TaskComponent(props: TaskComponentProps) {
   const {
     title,
     description,
-    status,
+    status: initialStatus,
     priority,
     dueDate,
     tags,
-    completed,
-    progress,
+    completed: initialCompleted,
+    progress: initialProgress,
   } = task;
+
+  const [isCompleted, setIsCompleted] = useState(initialCompleted);
+
+  const status: TaskStatus = isCompleted ? "done" : initialStatus;
+  const progress = isCompleted ? 100 : initialProgress;
 
   const formattedDueDate = new Date(dueDate).toLocaleDateString("en-US", {
     month: "long",
@@ -53,9 +59,18 @@ function TaskComponent(props: TaskComponentProps) {
     <div
       className="task"
       data-layout-structure="component"
-      data-completed={String(completed)}
+      data-completed={String(isCompleted)}
     >
       <div className="task-header">
+        <button
+          className="task-complete-btn"
+          onClick={() => setIsCompleted((c) => !c)}
+          aria-label={isCompleted ? "Mark incomplete" : "Mark complete"}
+        >
+          <span className="material-symbols-outlined">
+            {isCompleted ? "check_circle" : "radio_button_unchecked"}
+          </span>
+        </button>
         <h4 className="task-title-text">{title}</h4>
         <span className={`badge ${getPriorityBadgeClass(priority)}`}>
           {priority}

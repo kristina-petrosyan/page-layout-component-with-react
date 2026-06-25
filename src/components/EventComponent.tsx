@@ -3,6 +3,7 @@ import type { Event, EventStatus } from "../types/event.types";
 interface EventComponentProps {
   event: Event;
   theme?: "dark" | "light";
+  onDelete?: (id: number) => void;
 }
 
 function getStatusBadgeClass(status: EventStatus): string {
@@ -23,8 +24,9 @@ function getCapacityColor(fill: number): string {
 }
 
 function EventComponent(props: EventComponentProps) {
-  const { event } = props;
+  const { event, onDelete } = props;
   const {
+    id,
     title,
     description,
     status,
@@ -51,6 +53,15 @@ function EventComponent(props: EventComponentProps) {
         <span className={`badge ${getStatusBadgeClass(status)}`}>
           {getStatusLabel(status)}
         </span>
+        {onDelete && (
+          <button
+            className="event-delete-btn"
+            onClick={() => onDelete(id)}
+            aria-label={`Delete event: ${title}`}
+          >
+            <span className="material-symbols-outlined">delete</span>
+          </button>
+        )}
       </div>
       <p className="event-desc">{description}</p>
       <div className="event-location">

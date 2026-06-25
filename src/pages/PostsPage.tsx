@@ -1,12 +1,20 @@
+import { useState } from "react";
 import { useSearchParams } from "react-router";
 import database from "../storage/database";
+import type { Event } from "../types/event.types";
 import PostBlock from "../blocks/PostBlock";
-import AsidePartial from "../partials/AsidePartial";
+import EventBlock from "../blocks/EventBlock";
+import TaskBlock from "../blocks/TaskBlock";
 
 const ALL_TAGS = [...new Set(database.posts.flatMap((p) => p.tags))];
 
 function PostsPage() {
+  const [events, setEvents] = useState<Event[]>(database.events);
   const [searchParams, setSearchParams] = useSearchParams();
+
+  function handleDeleteEvent(id: number) {
+    setEvents((prev) => prev.filter((e) => e.id !== id));
+  }
 
   const tag = searchParams.get("tag") ?? "";
   const sort = searchParams.get("sort") ?? "";
@@ -21,14 +29,14 @@ function PostsPage() {
   };
 
   let filtered = database.posts.filter(
-    (post) => !tag || post.tags.includes(tag)
+    (post) => !tag || post.tags.includes(tag),
   );
 
   if (sort === "views") {
     filtered = [...filtered].sort((a, b) => b.views - a.views);
   } else if (sort === "likes") {
     filtered = [...filtered].sort(
-      (a, b) => b.reactions.likes - a.reactions.likes
+      (a, b) => b.reactions.likes - a.reactions.likes,
     );
   }
 
@@ -72,7 +80,10 @@ function PostsPage() {
         </main>
       </div>
       <div className="col" data-layout-structure="builder" data-content="aside">
-        <AsidePartial />
+        <aside data-layout-structure="partial">
+          <EventBlock events={events} onDelete={handleDeleteEvent} />
+          <TaskBlock />
+        </aside>
       </div>
     </div>
   );

@@ -1,8 +1,18 @@
+import { useState } from "react";
+import database from "../storage/database";
+import type { Event } from "../types/event.types";
 import SliderBlock from "../blocks/SliderBlock";
 import QuestionBlock from "../blocks/QuestionsBlock";
-import AsidePartial from "../partials/AsidePartial";
+import EventBlock from "../blocks/EventBlock";
+import TaskBlock from "../blocks/TaskBlock";
 
 function ServicesPage() {
+  const [events, setEvents] = useState<Event[]>(database.events);
+
+  function handleDeleteEvent(id: number) {
+    setEvents((prev) => prev.filter((e) => e.id !== id));
+  }
+
   return (
     <div className="row" data-layout-structure="builder">
       <div className="col" data-layout-structure="builder" data-content="main">
@@ -12,7 +22,10 @@ function ServicesPage() {
         </main>
       </div>
       <div className="col" data-layout-structure="builder" data-content="aside">
-        <AsidePartial />
+        <aside data-layout-structure="partial">
+          <EventBlock events={events} onDelete={handleDeleteEvent} />
+          <TaskBlock />
+        </aside>
       </div>
     </div>
   );
