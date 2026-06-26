@@ -1650,6 +1650,53 @@
     line-height: 1.65;
   }
 
+  .form-message {
+    display: none;
+    font-size: var(--text-xs);
+    margin-top: var(--sp-1);
+  }
+
+  /* touched, empty required field */
+  .form-input:user-invalid:placeholder-shown ~ .form-message--required {
+    display: block;
+  }
+
+  /* touched, has content but invalid */
+  .form-input:user-invalid:not(:placeholder-shown) ~ .form-message--invalid {
+    display: block;
+  }
+
+  /* touched and valid */
+  .form-input:user-valid ~ .form-message--success {
+    display: block;
+  }
+
+  /* input border — invalid state */
+  .form-input:user-invalid {
+    border-color: var(--clr-danger);
+    box-shadow:
+      0 0 0 3px var(--clr-danger-bg),
+      0 0 10px rgba(239, 68, 68, 0.08);
+  }
+
+  /* input border — valid state */
+  .form-input:user-valid {
+    border-color: var(--clr-success);
+    box-shadow:
+      0 0 0 3px var(--clr-success-bg),
+      0 0 10px rgba(34, 197, 94, 0.08);
+  }
+
+  /* message colors */
+  .form-message--required,
+  .form-message--invalid {
+    color: var(--clr-danger);
+  }
+
+  .form-message--success {
+    color: var(--clr-success);
+  }
+
   .form-submit {
     align-self: flex-end;
     display: inline-flex;

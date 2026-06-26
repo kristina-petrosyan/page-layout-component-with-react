@@ -7,11 +7,11 @@ function SocialLinkBlock() {
         <span className="material-symbols-outlined">share</span>
         Follow Us
       </h3>
-      {/*Social Link Component Render Here*/}
       <div className="social-icons">
-        <SocialIconComponent />
-        <SocialIconComponent />
-        <SocialIconComponent />
+        <SocialIconComponent href="#" label="Facebook" icon="fa-facebook-f" />
+        <SocialIconComponent href="#" label="Twitter" icon="fa-x-twitter" />
+        <SocialIconComponent href="#" label="Instagram" icon="fa-instagram" />
+        <SocialIconComponent href="#" label="GitHub" icon="fa-github" />
       </div>
     </div>
   );

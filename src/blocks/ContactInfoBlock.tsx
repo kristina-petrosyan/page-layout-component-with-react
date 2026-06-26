@@ -8,9 +8,20 @@ function ContactInfoBlock() {
         Contact Info
       </h3>
       <ul className="contact-list">
-        <ContactInfoComponent />
-        <ContactInfoComponent />
-        <ContactInfoComponent />
+        <ContactInfoComponent
+          icon="location_on"
+          text="42 Component Lane, CSS City"
+        />
+        <ContactInfoComponent
+          icon="mail"
+          text="hello@layoutcomponents.dev"
+          href="mailto:hello@layoutcomponents.dev"
+        />
+        <ContactInfoComponent
+          icon="phone"
+          text="+1 (555) 123-4567"
+          href="tel:+15551234567"
+        />
       </ul>
     </div>
   );

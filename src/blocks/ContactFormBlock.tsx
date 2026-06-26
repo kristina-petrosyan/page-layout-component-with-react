@@ -17,14 +17,57 @@ function ContactFormBlock() {
         noValidate
       >
         <div className="form-row">
-          <FormGroupComponent />
-          <FormGroupComponent />
+          <FormGroupComponent
+            label="Name"
+            htmlFor="contact-name"
+            name="name"
+            type="text"
+            placeholder="Your name"
+            autoComplete="name"
+            required
+            minLength={2}
+            requiredMessage="Name is required."
+            invalidMessage="At least 2 characters required."
+            successMessage="Looks good!"
+          />
+          <FormGroupComponent
+            label="Email"
+            htmlFor="contact-email"
+            name="email"
+            type="email"
+            placeholder="you@example.com"
+            autoComplete="email"
+            required
+            requiredMessage="Email is required."
+            invalidMessage="Enter a valid email address."
+            successMessage="Valid email address."
+          />
         </div>
-        <div className="form-row">
-          <FormGroupComponent />
-          <FormGroupComponent />
-        </div>
-
+        <FormGroupComponent
+          label="Subject"
+          htmlFor="contact-subject"
+          name="subject"
+          type="text"
+          placeholder="What's this about?"
+          required
+          minLength={3}
+          requiredMessage="Subject is required."
+          invalidMessage="At least 3 characters required."
+          successMessage="Looks good!"
+        />
+        <FormGroupComponent
+          label="Message"
+          htmlFor="contact-message"
+          name="message"
+          type="textarea"
+          placeholder="Your message…"
+          rows={5}
+          required
+          minLength={10}
+          requiredMessage="Message is required."
+          invalidMessage="At least 10 characters required."
+          successMessage="Great, thanks!"
+        />
         <button className="form-submit" type="submit">
           <span className="material-symbols-outlined">send</span>
           Send Message
