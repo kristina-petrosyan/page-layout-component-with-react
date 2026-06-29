@@ -1,6 +1,30 @@
-import FormGroupComponent from "../components/FormGroupComponent";
+import { useState } from "react";
+import InputGroupComponent from "../components/InputGroupComponent";
+import TextareaGroupComponent from "../components/TextareaGroupComponent";
 
 function ContactFormBlock() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [subject, setSubject] = useState("");
+  const [message, setMessage] = useState("");
+
+  function saveToLocalStorage() {
+    const contactData = {
+      name,
+      email,
+      subject,
+      message,
+    };
+    localStorage.setItem("contactFormData", JSON.stringify(contactData));
+  }
+
+  function clearForm() {
+    setName("");
+    setEmail("");
+    setSubject("");
+    setMessage("");
+  }
+
   return (
     <div
       className="contact-block"
@@ -15,9 +39,14 @@ function ContactFormBlock() {
         className="contact-form"
         data-layout-structure="component"
         noValidate
+        onSubmit={(e) => {
+          e.preventDefault();
+          saveToLocalStorage();
+          clearForm();
+        }}
       >
         <div className="form-row">
-          <FormGroupComponent
+          <InputGroupComponent
             label="Name"
             htmlFor="contact-name"
             name="name"
@@ -26,11 +55,13 @@ function ContactFormBlock() {
             autoComplete="name"
             required
             minLength={2}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             requiredMessage="Name is required."
             invalidMessage="At least 2 characters required."
             successMessage="Looks good!"
           />
-          <FormGroupComponent
+          <InputGroupComponent
             label="Email"
             htmlFor="contact-email"
             name="email"
@@ -38,12 +69,14 @@ function ContactFormBlock() {
             placeholder="you@example.com"
             autoComplete="email"
             required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             requiredMessage="Email is required."
             invalidMessage="Enter a valid email address."
             successMessage="Valid email address."
           />
         </div>
-        <FormGroupComponent
+        <InputGroupComponent
           label="Subject"
           htmlFor="contact-subject"
           name="subject"
@@ -51,19 +84,22 @@ function ContactFormBlock() {
           placeholder="What's this about?"
           required
           minLength={3}
+          value={subject}
+          onChange={(e) => setSubject(e.target.value)}
           requiredMessage="Subject is required."
           invalidMessage="At least 3 characters required."
           successMessage="Looks good!"
         />
-        <FormGroupComponent
+        <TextareaGroupComponent
           label="Message"
           htmlFor="contact-message"
           name="message"
-          type="textarea"
           placeholder="Your message…"
           rows={5}
           required
           minLength={10}
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
           requiredMessage="Message is required."
           invalidMessage="At least 10 characters required."
           successMessage="Great, thanks!"
