@@ -43,15 +43,21 @@ function TextareaGroupComponent({
         value={value}
         onChange={onChange}
       />
-      <span className="form-message form-message--required">
-        {requiredMessage}
-      </span>
-      <span className="form-message form-message--invalid">
-        {invalidMessage}
-      </span>
-      <span className="form-message form-message--success">
-        {successMessage}
-      </span>
+      {requiredMessage && (
+        <span className="form-message form-message--required">
+          {requiredMessage}
+        </span>
+      )}
+      {invalidMessage && (
+        <span className="form-message form-message--invalid">
+          {invalidMessage}
+        </span>
+      )}
+      {successMessage && (
+        <span className="form-message form-message--success">
+          {successMessage}
+        </span>
+      )}
     </div>
   );
 }

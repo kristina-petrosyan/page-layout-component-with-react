@@ -2,27 +2,25 @@ import { useState } from "react";
 import InputGroupComponent from "../components/InputGroupComponent";
 import TextareaGroupComponent from "../components/TextareaGroupComponent";
 
+const emptyForm = { name: "", email: "", subject: "", message: "" };
+
 function ContactFormBlock() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [subject, setSubject] = useState("");
-  const [message, setMessage] = useState("");
+  const [contactFormObject, setContactFormObject] = useState(emptyForm);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+
+  function handleChange(
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) {
+    const { name, value } = e.target;
+    setContactFormObject((current) => ({ ...current, [name]: value }));
+  }
 
   function saveToLocalStorage() {
-    const contactData = {
-      name,
-      email,
-      subject,
-      message,
-    };
-    localStorage.setItem("contactFormData", JSON.stringify(contactData));
+    localStorage.setItem("contactFormData", JSON.stringify(contactFormObject));
   }
 
   function clearForm() {
-    setName("");
-    setEmail("");
-    setSubject("");
-    setMessage("");
+    setContactFormObject({ ...emptyForm });
   }
 
   return (
@@ -41,8 +39,13 @@ function ContactFormBlock() {
         noValidate
         onSubmit={(e) => {
           e.preventDefault();
-          saveToLocalStorage();
-          clearForm();
+          try {
+            saveToLocalStorage();
+            setSubmitError(null);
+            clearForm();
+          } catch {
+            setSubmitError("Could not save your message. Please try again.");
+          }
         }}
       >
         <div className="form-row">
@@ -55,8 +58,8 @@ function ContactFormBlock() {
             autoComplete="name"
             required
             minLength={2}
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            value={contactFormObject.name}
+            onChange={handleChange}
             requiredMessage="Name is required."
             invalidMessage="At least 2 characters required."
             successMessage="Looks good!"
@@ -69,8 +72,8 @@ function ContactFormBlock() {
             placeholder="you@example.com"
             autoComplete="email"
             required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={contactFormObject.email}
+            onChange={handleChange}
             requiredMessage="Email is required."
             invalidMessage="Enter a valid email address."
             successMessage="Valid email address."
@@ -84,8 +87,8 @@ function ContactFormBlock() {
           placeholder="What's this about?"
           required
           minLength={3}
-          value={subject}
-          onChange={(e) => setSubject(e.target.value)}
+          value={contactFormObject.subject}
+          onChange={handleChange}
           requiredMessage="Subject is required."
           invalidMessage="At least 3 characters required."
           successMessage="Looks good!"
@@ -98,12 +101,15 @@ function ContactFormBlock() {
           rows={5}
           required
           minLength={10}
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
+          value={contactFormObject.message}
+          onChange={handleChange}
           requiredMessage="Message is required."
           invalidMessage="At least 10 characters required."
           successMessage="Great, thanks!"
         />
+        {submitError && (
+          <p className="form-message form-message--invalid">{submitError}</p>
+        )}
         <button className="form-submit" type="submit">
           <span className="material-symbols-outlined">send</span>
           Send Message
